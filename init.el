@@ -101,10 +101,6 @@
 (put 'set-goal-column 'disabled nil)
 
 ;;Backups
-(setq backup-directory-alist '(("." . "~/.saves")))
+(setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
 (setq backup-by-copying t)
 (setq inhibit-startup-screen t)
-
-(add-hook 'lua-mode-hook 
-          (lambda () (unless (fboundp 'lua-calculate-indentation-right-shift-next)
-                       (load-file (locate-file "my-lua.el" load-path)))))
