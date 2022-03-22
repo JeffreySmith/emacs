@@ -30,9 +30,9 @@
 
 (toggle-scroll-bar -1)
 
-(add-hook 'vterm-mode-hook (lambda () (setq evil-default-state 'emacs)))
-
-(evil-set-initial-state 'dired-mode 'emacs)
+;;(add-hook 'vterm-mode-hook (lambda () (setq evil-default-state 'emacs)))
+(evil-set-initial-state 'vterm-mode 'insert)
+(evil-set-initial-state 'dired-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 
 (setq-default c-default-style "linux"
@@ -57,10 +57,9 @@
 (counsel-mode 1)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;;(global-set-key (kbd "C-c ") 'counsel-git)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "C-c u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
 
 (require 'cmake-mode)
 (require 'cmake-project)
@@ -77,24 +76,20 @@
                           (toggle-word-wrap)
                           (org-indent-mode)
                           (flyspell-mode)))
-;;(add-hook 'org-mode'hook 'flyspell-
 
 
 ;(global-set-key (kbd "C-c C-r") 'ivy-resume)
 ;(global-set-key (kbd "<f6>") 'ivy-resume)
-;(global-set-key (kbd "M-x") 'counsel-M-x)
-;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;(global-set-key (kbd "<f1> f") 'counsel-describe-function)
 ;(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 ;(global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
 ;(global-set-key (kbd "<f1> l") 'counsel-find-library)
 ;(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
 ;(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-;(global-set-key (kbd "C-c g") 'counsel-git)
 ;(global-set-key (kbd "C-c j") 'counsel-git-grep)
 ;(global-set-key (kbd "C-c k") 'counsel-ag)
 ;(global-set-key (kbd "C-x l") 'counsel-locate)
-;(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 ;(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
