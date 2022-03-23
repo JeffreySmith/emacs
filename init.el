@@ -16,7 +16,7 @@
       nil)))
  '(org-agenda-files '("~/org/test.org"))
  '(package-selected-packages
-   '(use-package kdeconnect racket-mode nim-mode vterm company-ebdb haskell-mode pdf-tools lua-mode ace-window cmake-project cmake-mode counsel swiper evil-collection ivy company-c-headers solarized-theme magit gruvbox-theme evil))
+   '(speed-type use-package kdeconnect racket-mode nim-mode vterm company-ebdb haskell-mode pdf-tools lua-mode ace-window cmake-project cmake-mode counsel swiper evil-collection ivy company-c-headers solarized-theme magit gruvbox-theme evil))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -37,7 +37,8 @@
   (evil-set-initial-state 'vterm-mode 'insert)
   (evil-set-initial-state 'dired-mode 'insert)
   (evil-set-initial-state 'git-commit-mode 'insert))
-
+(use-package vterm
+  :ensure t)
 ;;Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
@@ -45,7 +46,10 @@
 
 ;;Theming
 (toggle-scroll-bar -1)
-(load-theme 'solarized-light t)
+(use-package solarized-theme
+  :ensure
+  :config
+  (load-theme 'solarized-light t))
 
 
 (setq-default c-default-style "linux"
@@ -80,7 +84,12 @@
   :ensure t
   :config
   (global-set-key (kbd "M-o") 'ace-window))
-
+(use-package kdeconnect
+  :ensure t
+  :config
+  (setq kdeconnect-active-device "29d7fe6628f4b696"))
+(use-package speed-type
+  :ensure t)
 
 ;(setq ivy-use-virtual-buffers t)
 ;(setq enable-recursive-minibuffers t)
@@ -135,7 +144,7 @@
 ;;(windmove-default-keybindings)
 (put 'set-goal-column 'disabled nil)
 
-(setq kdeconnect-active-device "29d7fe6628f4b696")
+
 
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
