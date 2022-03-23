@@ -90,6 +90,10 @@
   (setq kdeconnect-active-device "29d7fe6628f4b696"))
 (use-package speed-type
   :ensure t)
+(use-package cmake-mode
+  :ensure t
+  :mode "CMakeLists.txt")
+
 
 ;(setq ivy-use-virtual-buffers t)
 ;(setq enable-recursive-minibuffers t)
@@ -105,7 +109,7 @@
 
 
 
-(require 'cmake-mode)
+;;(require 'cmake-mode)
 (require 'cmake-project)
 
 ;;(global-set-key (kbd "M-o") 'ace-window)
