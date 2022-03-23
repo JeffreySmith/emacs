@@ -52,7 +52,6 @@
   :config
   (load-theme 'solarized-light t))
 
-
 (setq-default c-default-style "linux"
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
@@ -94,6 +93,8 @@
 (use-package cmake-mode
   :ensure t
   :mode "CMakeLists.txt")
+(use-package pdf-tools
+  :ensure t)
 (global-set-key (kbd "C-c C-'") 'avy-goto-char)
 (global-set-key (kbd "C-c q") 'avy-goto-char-2)
 
