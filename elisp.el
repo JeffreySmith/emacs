@@ -108,7 +108,7 @@ nEnter your age: ")
 
 (penultimate-elem '(1 2 3 4 5))
 (penultimate-elem '())
-(last-elem-recur '())
+(last-elem '())
 (round (sqrt 33))
 (length '())
 (reverse-list '(1 2 3 4 5))
