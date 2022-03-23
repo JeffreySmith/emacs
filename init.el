@@ -39,6 +39,7 @@
   (evil-set-initial-state 'git-commit-mode 'insert))
 (use-package vterm
   :ensure t)
+
 ;;Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
@@ -93,26 +94,9 @@
 (use-package cmake-mode
   :ensure t
   :mode "CMakeLists.txt")
-
-
-;(setq ivy-use-virtual-buffers t)
-;(setq enable-recursive-minibuffers t)
-;(global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "C-c C-'") 'avy-goto-char)
 (global-set-key (kbd "C-c q") 'avy-goto-char-2)
 
-
-
-
-
-
-
-
-
-;;(require 'cmake-mode)
-(require 'cmake-project)
-
-;;(global-set-key (kbd "M-o") 'ace-window)
 
 (global-display-line-numbers-mode)
 
@@ -125,30 +109,12 @@
                           (org-indent-mode)
                           (flyspell-mode)))
 
-
-;(global-set-key (kbd "C-c C-r") 'ivy-resume)
-;(global-set-key (kbd "<f6>") 'ivy-resume)
-
-;(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-;(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-;(global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
-;(global-set-key (kbd "<f1> l") 'counsel-find-library)
-;(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-;(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-;(global-set-key (kbd "C-c j") 'counsel-git-grep)
-;(global-set-key (kbd "C-c k") 'counsel-ag)
-;(global-set-key (kbd "C-x l") 'counsel-locate)
-;(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 
-
-;;(windmove-default-keybindings)
 (put 'set-goal-column 'disabled nil)
-
-
 
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
