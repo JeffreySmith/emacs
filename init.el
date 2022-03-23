@@ -47,7 +47,7 @@
 ;;Theming
 (toggle-scroll-bar -1)
 (use-package solarized-theme
-  :ensure
+  :ensure t
   :config
   (load-theme 'solarized-light t))
 
@@ -56,11 +56,11 @@
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
 
-
-
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(add-to-list 'company-backends 'company-c-headers)
+(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  (add-to-list 'company-backends 'company-c-headers))
 
 
 (use-package ivy
