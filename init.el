@@ -16,7 +16,7 @@
       nil)))
  '(org-agenda-files '("~/org/test.org"))
  '(package-selected-packages
-   '(speed-type use-package kdeconnect racket-mode nim-mode vterm company-ebdb haskell-mode pdf-tools lua-mode ace-window cmake-project cmake-mode counsel swiper evil-collection ivy company-c-headers solarized-theme magit gruvbox-theme evil))
+   '(geiser-guile cider use-package kdeconnect racket-mode nim-mode vterm company-ebdb haskell-mode pdf-tools lua-mode ace-window cmake-project cmake-mode counsel swiper evil-collection ivy company-c-headers solarized-theme magit gruvbox-theme evil))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -25,6 +25,7 @@
  ;; If there is more than one, they won't work right.
  )
 (setq package-native-compile t)
+(add-to-list 'exec-path "~/.bin/")
 
 ;; Evil settings
 (use-package evil
@@ -36,10 +37,17 @@
   (evil-mode)
   (evil-set-initial-state 'vterm-mode 'insert)
   (evil-set-initial-state 'dired-mode 'insert)
+  (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
   (evil-set-initial-state 'git-commit-mode 'insert))
+
 (use-package vterm
   :ensure t)
-
+(use-package cider
+  :ensure t)
+(use-package geiser-guile
+  :ensure t)
+(use-package racket-mode
+  :ensure t)
 ;;Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
@@ -71,6 +79,12 @@
   (setq enable-recursive-minibuffers t)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key "\C-s" 'swiper))
+(use-package avy
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c C-'") 'avy-goto-char)
+  (global-set-key (kbd "C-c q") 'avy-goto-char-2))
+  
 (use-package counsel
   :ensure t
   :config
@@ -95,8 +109,6 @@
   :mode "CMakeLists.txt")
 (use-package pdf-tools
   :ensure t)
-(global-set-key (kbd "C-c C-'") 'avy-goto-char)
-(global-set-key (kbd "C-c q") 'avy-goto-char-2)
 
 
 (global-display-line-numbers-mode)
@@ -104,6 +116,7 @@
 ;;Org mode stuff
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
+(setq org-log-into-drawer t)
 (add-hook 'org-mode-hook '(lambda ()
                           (visual-line-mode)
                           (toggle-word-wrap)
@@ -115,7 +128,6 @@
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 
-(put 'set-goal-column 'disabled nil)
 
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
