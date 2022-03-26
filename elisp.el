@@ -97,7 +97,7 @@ nEnter your age: ")
 
 (defun last-elem (my-list)
   (if (>= 1 (length my-list)) (car my-list)
-      (last-elem-recur (cdr my-list))))
+      (last-elem (cdr my-list))))
 (defun penultimate-elem (my-list)
   (if (>= 2 (length my-list)) (car my-list)
     (penultimate-elem (cdr my-list))))
