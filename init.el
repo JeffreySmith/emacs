@@ -17,13 +17,12 @@
 ;; Evil settings
 (use-package evil
   :ensure t
-  :init ;; I'm changing some things before it loads
+  :init ;; I'm changing some things before it loads. They have to be
   (setq evil-disable-insert-state-bindings t)
   (setq evil-want-keybinding nil)
   :config ;; Tweak after it loads
   (evil-mode)
   (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
-  (add-hook 'helpful-mode-hook 'evil-insert-state)
   (evil-set-initial-state 'vterm-mode 'insert)
   (evil-set-initial-state 'dired-mode 'insert)  
   (evil-set-initial-state 'helpful-mode 'insert)
@@ -146,6 +145,5 @@
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
 (setq backup-by-copying t)
+;;Move variables set by emacs automatically into another file so this one looks clean 
 (setq custom-file (concat user-emacs-directory "/custom.el"))
-
-
