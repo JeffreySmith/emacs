@@ -30,7 +30,9 @@
   (evil-set-initial-state 'git-commit-mode 'insert))
 (use-package evil-collection
   :ensure t
-)
+  )
+(use-package magit
+  :ensure t)
 (use-package vterm
   :ensure t)
 (use-package cider
