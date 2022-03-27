@@ -33,6 +33,7 @@
 (use-package magit
   :ensure t
   :bind
+  ("C-c g" . magit-file-dispatch)
   ("C-x g" . magit-status))
 (use-package vterm
   :ensure t)
@@ -118,7 +119,16 @@
   (dashboard-setup-startup-hook)
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-set-footer nil))
-
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+(use-package olivetti
+  :ensure t)
+(use-package writegood-mode
+  :ensure t
+  :bind
+  ("C-c C-g" . 'writegood-mode))
 (global-display-line-numbers-mode)
 
 
@@ -132,7 +142,14 @@
 ;;Org mode stuff
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
+
+(setq org-mobile-directory "~/Dropbox/org")
+(setq org-directory "~/org")
+(setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
 (setq org-log-into-drawer t)
+(setq org-mobile-force-id-on-agenda-items nil)
+(setq org-log-reschedule 'time)
+(setq org-log-done 'time)
 (add-hook 'org-mode-hook '(lambda ()
                           (visual-line-mode)
                           (toggle-word-wrap)
