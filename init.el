@@ -262,8 +262,8 @@
 ;;Move variables set by emacs automatically into another file so this one looks clean 
 ;;(setq custom-file (concat user-emacs-directory "/custom.el"))
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "/usr/bin/sbcl")
+;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;;(setq inferior-lisp-program "/usr/bin/sbcl")
 
 ;;I tried this for something and I don't think it made a difference
 (setq posframe-gtk-resize-child-frames 'resize-mode)
