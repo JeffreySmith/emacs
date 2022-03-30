@@ -6,6 +6,9 @@
 (add-to-list 'exec-path "~/.bin/")
 ;;(load "~/.emacs.d/custom.el")
 
+
+(setq native-comp-async-report-warnings-errors nil)
+
 (use-package emacs
    :bind
    ("C-=" . 'text-scale-increase)
@@ -196,7 +199,8 @@
   (setq org-directory "~/org")
   (setq org-mobile-directory "~/Dropbox/org")
   (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))  
-  (setq org-log-into-drawer t)
+  (setq org-log-into-drawer t
+        org-clock-into-drawer "TIMESPENT")
   (setq org-mobile-force-id-on-agenda-items nil)
   (setq org-log-reschedule 'time)
   (setq org-log-done 'time)
@@ -212,14 +216,22 @@
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path 'file)
   (setq org-refile-allow-creating-parent-nodes t)
+  (setq org-enforce-todo-dependencies t)
+  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-agenda-dim-blocked-tasks t)
+  (setq org-track-ordered-property-with-tag t)
+  (setq org-latex-toc-command "\\tableofcontents \\clearpage")
   (setq org-capture-templates
         '(("n" "Test template")
           ("nt" "TODO entry" entry
            (file+headline "~/org/test.org" "Capture")
            "* TODO %^{Description} :NEW:\nDEADLINE: %^t\n%?\n:LOGBOOK:\n- Added: %U\n:END:")
-          ("nb" "Basic entry" entry
-           (file+headline "~/org/test.org" "Capture")
-           "* %^{Description} :NEW:\n%?\n:LOGBOOK:\n- Added: %U\n:END:")
+          ("nb" "Add book to list" entry
+           (file+headline "~/org/test.org" "Books to read")
+           "* %^{Author} - %^{Title}\n:PROPERTIES:\n:AUTHOR:   %\\1\n:TITLE:    %\\2 \n:END:\n- %?\n:LOGBOOK:\n- Added: %U\n:END:")
+          ;;("nb" "Basic entry" entry
+           ;;(file+headline "~/org/test.org" "Capture")
+           ;;"* %^{Description} :NEW:\n%?\n:LOGBOOK:\n- Added: %U\n:END:")
           ("c" "Cookbook capture")
           ("cb" "Breakfast Recipe" entry
            (file+headline "~/org/recipes/cookbook.org" "Breakfast")
@@ -261,6 +273,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("/home/jeffrey/org/recipes/breakfast potatoes.org" "/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/test.org"))
  '(package-selected-packages
    '(which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
 (custom-set-faces

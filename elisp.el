@@ -117,3 +117,23 @@ nEnter your age: ")
 (cons (car '(1 2)) '())
 (reverse-list '())
 (null '())
+(if (and (and (= (% 2000 400) 0) (/= (% 2000 100) 0)) (= (% 2000 4) 0))
+    (message "Divisible by both"))
+(defun leap-year (year)
+  (if (or (and (zerop (% year 4)) (cl-plusp  (% year 100) ) (cl-plusp (% year 400))) (and (zerop (% year 4)) (zerop (% year 100) ) (zerop (% year 400))))
+      t
+    nil))
+(defun leap-year-2 (year)
+  (and (zerop (% year 4))
+       (or (cl-plusp (% year 100))
+           (zerop (% year 400)))))
+              
+
+(leap-year 2000)
+(leap-year-p 1996)
+(leap-year 1900)
+(leap-year 4)
+(/ 1900 100)
+(cl-plusp -55)
+
+
