@@ -64,6 +64,12 @@
   :ensure t)
 (use-package lua-mode
   :ensure t)
+(use-package web-mode
+  :ensure t
+  :config
+  (setq web-mode-enable-current-element-highlight t)
+
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 (use-package solarized-theme
   :ensure t
   :config
@@ -274,9 +280,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/home/jeffrey/org/recipes/breakfast potatoes.org" "/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/test.org"))
+   '("/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/test.org"))
  '(package-selected-packages
-   '(which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
+   '(web-mode which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
