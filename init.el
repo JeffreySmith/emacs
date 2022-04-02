@@ -32,6 +32,7 @@
 ;; Evil settings
 (use-package evil
   :ensure t
+  :disabled t
   :init ;; I'm changing some things before it loads. They have to be
   (setq evil-disable-insert-state-bindings t)
   (setq evil-want-keybinding nil)
@@ -46,6 +47,7 @@
   (evil-set-initial-state 'git-commit-mode 'insert))
 (use-package evil-collection
   :ensure t
+  :disabled t
   )
 (use-package magit
   :ensure t
@@ -144,6 +146,7 @@
   ("C-h k" . 'helpful-variable)
   ("C-c C-d" . 'helpful-at-point))
 (use-package which-key
+  :disabled t
   :ensure t
   :config
   (setq which-key-idle-delay 4)
@@ -154,6 +157,10 @@
   (dashboard-setup-startup-hook)
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-set-footer nil))
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
+
 (use-package org-superstar
   :ensure t
   :config
@@ -206,8 +213,9 @@
   (setq org-mobile-directory "~/Dropbox/org")
   (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))  
   (setq org-log-into-drawer t
-        org-clock-into-drawer "TIMESPENT")
+        org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
+  (setq org-enforce-todo-dependencies t)
   (setq org-log-reschedule 'time)
   (setq org-log-done 'time)
   (setq org-export-with-smart-quotes t)
@@ -215,9 +223,8 @@
   (setq org-startup-indented t)
   (setq org-hide-emphasis-markers t)
   (setq org-catch-invisible-edits  'smart)
-  
-  (setq org-refile-targets
-        '((nil :maxlevel . 4)
+
+  (setq org-refile-targets '((nil :maxlevel . 4)
           (org-agenda-files :maxlevel . 4)))
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path 'file)
@@ -284,7 +291,7 @@
  '(org-agenda-files
    '("/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/test.org"))
  '(package-selected-packages
-   '(web-mode which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
+   '(all-the-icons web-mode which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
