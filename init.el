@@ -237,7 +237,9 @@
            "* %^{Author} - %^{Title}\n:PROPERTIES:\n:AUTHOR:   %\\1\n:TITLE:    %\\2 \n:END:\n- %?\n:LOGBOOK:\n- Added: %U\n:END:")
           ;;("nb" "Basic entry" entry
            ;;(file+headline "~/org/test.org" "Capture")
-           ;;"* %^{Description} :NEW:\n%?\n:LOGBOOK:\n- Added: %U\n:END:")
+          ;;"* %^{Description} :NEW:\n%?\n:LOGBOOK:\n- Added: %U\n:END:")
+          ("j" "Journal entry" entry (file+olp+datetree
+                                      "~/org/journal.org") "* %U - %^{Activity}\n-%?")
           ("c" "Cookbook capture")
           ("cb" "Breakfast Recipe" entry
            (file+headline "~/org/recipes/cookbook.org" "Breakfast")
