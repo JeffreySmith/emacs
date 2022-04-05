@@ -233,6 +233,14 @@
   (setq org-agenda-dim-blocked-tasks t)
   (setq org-track-ordered-property-with-tag t)
   (setq org-latex-toc-command "\\tableofcontents \\clearpage")
+  (setq org-publish-project-alist
+        (list
+         (list "org-website"
+               :base-directory "~/org/publishing/"
+               :publishing-directory "~/public_html"
+               :publishing-function 'org-html-publish-to-html
+               :section-numbers nil
+               :with-toc nil)))
   (setq org-capture-templates
         '(("n" "Test template")
           ("nt" "TODO entry" entry
