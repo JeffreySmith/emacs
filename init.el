@@ -4,9 +4,8 @@
 
 (setq package-native-compile t)
 (add-to-list 'exec-path "~/.bin/")
-;;(load "~/.emacs.d/custom.el")
-
-
+;;(load "~/.emacs.d/custom.el"
+;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
 
 (use-package emacs
