@@ -7,7 +7,11 @@
 ;;(load "~/.emacs.d/custom.el"
 ;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
+(require 'ox-beamer)
+(require 'ox-md)
+;;push 'ol-habit org-modulea| ITEM            | CLOSED                 |
 
+(require 'org-habit)
 (use-package emacs
    :bind
    ("C-=" . 'text-scale-increase)
