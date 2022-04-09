@@ -86,6 +86,7 @@
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   (add-to-list 'company-backends 'company-clang)
+  (add-to-list 'company-backends 'company-web-html)
   (global-company-mode t))
 (use-package company-box
   :disabled t)
@@ -225,6 +226,7 @@
   (setq org-pretty-entities t)
   (setq org-startup-indented t)
   (setq org-hide-emphasis-markers t)
+  (setq org-hide-leading-stars t)
   (setq org-catch-invisible-edits  'smart)
 
   (setq org-refile-targets '((nil :maxlevel . 4)
@@ -300,7 +302,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/test.org"))
+   '("/home/jeffrey/org/publishing/about.org" "/home/jeffrey/org/publishing/index.org" "/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/homebrew.org" "/home/jeffrey/org/journal.org" "/home/jeffrey/org/presentation.org" "/home/jeffrey/org/read-books.org" "/home/jeffrey/org/table.org" "/home/jeffrey/org/test.org"))
  '(package-selected-packages
    '(all-the-icons web-mode which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
 (custom-set-faces
