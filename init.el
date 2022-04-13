@@ -215,7 +215,8 @@
   :config
   (setq org-directory "~/org")
   (setq org-mobile-directory "~/Dropbox/org")
-  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))  
+;;  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
+  (setq org-agenda-files '("~/org/test.org" "~/org/capture.org"))
   (setq org-log-into-drawer t
         org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
