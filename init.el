@@ -72,7 +72,10 @@
 (use-package web-mode
   :ensure t
   :config
-  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-enable-auto-closing t
+        web-mode-enable-auto-pairing t
+        web-mode-enable-auto-quoting t
+        web-mode-enable-current-element-highlight t)
 
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 (use-package solarized-theme
@@ -95,7 +98,12 @@
   :ensure t
   :config
   (add-to-list 'company-backends 'company-c-headers))
-
+(use-package emmet-mode
+  :ensure t
+  :config
+  
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode))
 (use-package ivy
   :ensure t
   :config
@@ -306,7 +314,7 @@
  '(org-agenda-files
    '("/home/jeffrey/org/publishing/about.org" "/home/jeffrey/org/publishing/index.org" "/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/homebrew.org" "/home/jeffrey/org/journal.org" "/home/jeffrey/org/presentation.org" "/home/jeffrey/org/read-books.org" "/home/jeffrey/org/table.org" "/home/jeffrey/org/test.org"))
  '(package-selected-packages
-   '(all-the-icons web-mode which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
+   '(emmet-mode all-the-icons web-mode which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode vterm use-package speed-type solarized-theme racket-mode pdf-tools olivetti nim-mode magit lua-mode kdeconnect ivy-avy highlight-defined helpful geiser-guile evil-collection ebdb dashboard counsel company-c-headers cmake-mode cider autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
