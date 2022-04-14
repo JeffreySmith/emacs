@@ -87,6 +87,7 @@
   (add-hook 'after-init-hook 'global-company-mode)
   (add-to-list 'company-backends 'company-clang)
   (add-to-list 'company-backends 'company-web-html)
+  (add-to-list 'company-backends 'company-css)
   (global-company-mode t))
 (use-package company-box
   :disabled t)
