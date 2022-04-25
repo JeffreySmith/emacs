@@ -9,7 +9,10 @@
 (setq native-comp-async-report-warnings-errors nil)
 (require 'ox-beamer)
 (require 'ox-md)
-;;push 'ol-habit org-modulea| ITEM            | CLOSED                 |
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (shell . t)))
 
 (require 'org-habit)
 (use-package emacs
