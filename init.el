@@ -9,17 +9,11 @@
 (setq native-comp-async-report-warnings-errors nil)
 (require 'ox-beamer)
 (require 'ox-md)
-<<<<<<< HEAD
-;(org-babel-do-load-languages
-; 'org-babel-load-languages
-; '((python . t)
-;   (shell . t)))
-=======
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
    (shell . t)))
->>>>>>> f759cc7e5bfc5a914f76660e8a70c1398a566b75
 
 (require 'org-habit)
 (use-package emacs
