@@ -69,6 +69,8 @@
 ;  :ensure t)
 (use-package racket-mode
   :ensure t)
+(use-package haskell-mode
+  :ensure t)
 (use-package nim-mode
   :ensure t)
 (use-package lua-mode
