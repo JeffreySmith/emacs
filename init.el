@@ -250,6 +250,8 @@
   (setq org-hide-emphasis-markers t)
   (setq org-hide-leading-stars t)
   (setq org-catch-invisible-edits  'smart)
+  (setq org-html-validation-link nil);;removes validate from the bottom of org exported html pages
+
 
   (setq org-refile-targets '((nil :maxlevel . 4)
           (org-agenda-files :maxlevel . 4)))
