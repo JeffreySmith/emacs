@@ -25,6 +25,11 @@
   :bind
   ("C-=" . 'text-scale-increase)
   ("C--" . 'text-scale-decrease))
+(use-package visual-regexp
+  :bind
+  ("C-c r" . 'vr/replace)
+  ("C-c s" . 'vr/query-replace)
+  :ensure t)
 (use-package gcmh
   :ensure t
   :config
@@ -237,7 +242,7 @@
   (setq org-directory "~/org")
   (setq org-mobile-directory "~/Dropbox/org")
 ;;  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
-  (setq org-agenda-files '( "~/org/capture.org" "~/org/conestoga"))
+  (setq org-agenda-files '( "~/org/capture.org" "~/org/conestoga" "~/org/courses.org"))
   (setq org-log-into-drawer t
         org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
@@ -328,9 +333,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
  '(package-selected-packages
-   '(vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
+   '(visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
