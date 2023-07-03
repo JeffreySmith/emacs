@@ -36,7 +36,8 @@
   (gcmh-mode 1))
 (use-package mixed-pitch
   :ensure t)
-
+(use-package lsp-mode
+  :ensure t)
 ;;Auto-update packages
 (use-package auto-package-update
   :ensure t
@@ -240,7 +241,7 @@
   ("<f6>" . 'org-capture)
   :config
   (setq org-directory "~/org")
-  (setq org-mobile-directory "~/Dropbox/org")
+  (setq org-mobile-directory "~/Documents/org")
 ;;  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
   (setq org-agenda-files '( "~/org/capture.org" "~/org/conestoga" "~/org/courses.org"))
   (setq org-log-into-drawer t
@@ -334,7 +335,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
+   '(lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
