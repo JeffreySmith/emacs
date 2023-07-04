@@ -128,6 +128,10 @@
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   (setq company-global-modes '(not org-mode))
+  (setq company-global-modes '(not magit-status-mode))
+  (setq company-global-modes '(not magit-diff-mode))
+  (setq company-global-modes '(not magit-mode))
+  (setq company-global-modes '(not text-mode))
   (add-hook 'org-mode-hook (company-mode -1))
   (add-to-list 'company-backends 'company-clang)
   (add-to-list 'company-backends 'company-css)
