@@ -37,7 +37,27 @@
 (use-package mixed-pitch
   :ensure t)
 (use-package lsp-mode
-  :ensure t)
+  :ensure t
+  :init
+  (setq lsp-keymap-prefix "C-c C-l")
+  :config
+  (add-hook 'JavaScript-mode-hook #'lsp)
+  ;;(add-hook 'typescript-mode-hook #'lsp)
+  (add-hook 'web-mode-hook #'lsp)
+  (lsp-enable-which-key-integration t))
+
+(use-package lsp-ui
+  :ensure t
+  :config
+  (setq lsp-ui-doc-show-with-cursor nil)
+  (setq lsp-ui-doc-show-with-mouse nil)
+  :commands lsp-ui-mode)
+(use-package typescript-mode
+  :ensure t
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+  (setq typescript-indent-level 2))
 ;;Auto-update packages
 (use-package auto-package-update
   :ensure t
@@ -107,8 +127,13 @@
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-global-modes '(not org-mode))
+  (add-hook 'org-mode-hook (company-mode -1))
   (add-to-list 'company-backends 'company-clang)
   (add-to-list 'company-backends 'company-css)
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t)
   (global-company-mode t))
 (use-package company-box
   :disabled t)
@@ -131,6 +156,8 @@
   :bind
   ("C-c C-r" . ivy-resume)
   ("C-s" . 'swiper))
+(use-package lsp-ivy
+  :ensure t)
 (use-package avy
   :ensure t
   :bind
@@ -177,10 +204,9 @@
   ("C-h k" . 'helpful-variable)
   ("C-c C-d" . 'helpful-at-point))
 (use-package which-key
-  :disabled t
   :ensure t
   :config
-  (setq which-key-idle-delay 4)
+  (setq which-key-idle-delay 2)
   (which-key-mode))
 (use-package dashboard
   :ensure t
@@ -335,7 +361,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
+   '(lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
