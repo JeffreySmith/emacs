@@ -42,10 +42,18 @@
   (setq lsp-keymap-prefix "C-c C-l")
   :config
   (add-hook 'JavaScript-mode-hook #'lsp)
-  ;;(add-hook 'typescript-mode-hook #'lsp)
+  (add-hook 'js-mode-hook #'lsp)
+  (add-hook 'typescript-mode-hook #'lsp)
   (add-hook 'web-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
-
+(use-package lsp-sourcekit
+  :ensure t
+  :after lsp-mode
+  :config
+  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+(use-package swift-mode
+  :ensure t
+  :hook (swift-mode . (lambda () (lsp))))
 (use-package lsp-ui
   :ensure t
   :config
@@ -132,7 +140,7 @@
   (setq company-global-modes '(not magit-diff-mode))
   (setq company-global-modes '(not magit-mode))
   (setq company-global-modes '(not text-mode))
-  (add-hook 'org-mode-hook (company-mode -1))
+  (add-hook 'org-mode-hook (lambda() (company-mode -1)))
   (add-to-list 'company-backends 'company-clang)
   (add-to-list 'company-backends 'company-css)
   (setq company-idle-delay 0)
@@ -274,8 +282,8 @@
   (setq org-mobile-directory "~/Documents/org")
 ;;  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
   (setq org-agenda-files '( "~/org/capture.org" "~/org/conestoga" "~/org/courses.org"))
-  (setq org-log-into-drawer t
-        org-clock-into-drawer "CLOCKING")
+  ;;(setq org-log-into-drawer t
+  ;;      org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
   (setq org-enforce-todo-dependencies t)
   (setq org-log-reschedule 'time)
@@ -334,7 +342,7 @@
            (file+headline "~/org/recipes/cookbook.org" "Uncategorized")
            "%(org-chef-get-recipe-from-url)")
 
-          )))
+)))
 
 
 ;; (add-hook 'org-mode-hook '(lambda ()
@@ -365,7 +373,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
+   '(swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
