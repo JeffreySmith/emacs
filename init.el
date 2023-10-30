@@ -9,6 +9,13 @@
 
 (global-set-key (kbd "C-c c") "->")
 
+
+ (add-hook 'compilation-finish-functions
+           (lambda (buf strg)
+             (let ((win  (get-buffer-window buf 'visible)))
+               (when win (delete-window win)))))
+
+
 ;;(load "~/.emacs.d/custom.el"
 ;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
@@ -42,10 +49,15 @@
   (setq lsp-keymap-prefix "C-c C-l")
   :config
   (add-hook 'JavaScript-mode-hook #'lsp)
+  (add-hook 'haskell-mode-hook #'lsp)
+  (add-hook 'haskell-literate-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
   (add-hook 'typescript-mode-hook #'lsp)
-  (add-hook 'web-mode-hook #'lsp)
+  (add-hook 'rust-mode-hook #'lsp)
+  ;;(add-hook 'web-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
+
+
 (use-package lsp-sourcekit
   :ensure t
   :after lsp-mode
@@ -116,6 +128,8 @@
   :ensure t)
 (use-package rust-mode
   :ensure t)
+(use-package go-mode
+  :ensure t)
 (use-package web-mode
   :ensure t
   :config
@@ -123,7 +137,7 @@
         web-mode-enable-auto-pairing t
         web-mode-enable-auto-quoting t
         web-mode-enable-current-element-highlight t)
-
+  (add-to-list 'auto-mode-alist '("\\.ejs?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
 (use-package solarized-theme
   :ensure t
@@ -144,9 +158,12 @@
   (add-to-list 'company-backends 'company-clang)
   (add-to-list 'company-backends 'company-css)
   (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
+  (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t)
   (global-company-mode t))
+(use-package zig-mode
+  :ensure t)
+  
 (use-package company-box
   :disabled t)
 (use-package company-c-headers
@@ -373,7 +390,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window)))
+   '(go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+ '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
