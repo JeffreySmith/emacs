@@ -8,12 +8,16 @@
 (add-to-list 'exec-path "~/.bin/")
 
 (global-set-key (kbd "C-c c") "->")
+(setq js-indent-level 2)
+(setq typescript-indent-level 2)
+(setq line-number-mode t)
+(setq column-number-mode t)
 
 
- (add-hook 'compilation-finish-functions
-           (lambda (buf strg)
-             (let ((win  (get-buffer-window buf 'visible)))
-               (when win (delete-window win)))))
+(add-hook 'compilation-finish-functions
+          (lambda (buf strg)
+            (let ((win  (get-buffer-window buf 'visible)))
+              (when win (delete-window win)))))
 
 
 ;;(load "~/.emacs.d/custom.el"
