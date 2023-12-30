@@ -90,16 +90,35 @@
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   (setq typescript-indent-level 2))
 ;;Auto-update packages
+
 (use-package auto-package-update
   :ensure t
   :config
   (setq auto-package-update-delete-old-versions t)
   (setq auto-package-update-hide-results t)
-  (setq auto-package-update-interval 2)
+  (setq auto-package-update-interval 7)
   (auto-package-update-maybe))
+
+
 (use-package mos-mode
   :ensure t)
+(use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode)
+  :ensure t)
+(use-package eshell-prompt-extras
   
+  :ensure t
+  :config
+  (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-lambda))
+(use-package dired
+  :ensure nil
+  :config
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired t
+          insert-directory-program "/opt/homebrew/bin/gls"))
+  :custom
+  (dired-listing-switches "-lDBXhgG --group-directories-first"))  
 ;; Evil settings
 ;; (use-package evil
 ;;   :ensure t
@@ -242,8 +261,12 @@
   :bind
   ("C-h f" . 'helpful-callable)
   ("C-h v" . 'helpful-variable)
-  ("C-h k" . 'helpful-variable)
-  ("C-c C-d" . 'helpful-at-point))
+  ("C-h k" . 'helpful-key)
+  ("C-h x" . 'helpful-command)
+  ("C-c C-d" . 'helpful-at-point)
+  :config
+  (setq counsel-describe-function-function #'helpful-callable)
+  (setq counsel-describe-variable-function #'helpful-variable))
 (use-package which-key
   :ensure t
   :config
@@ -253,6 +276,8 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook)
+  (setq dashboard-week-agenda t)
+  (setq dashboard-center-content t)
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-set-footer nil))
 (use-package all-the-icons
@@ -390,7 +415,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+   '(eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
