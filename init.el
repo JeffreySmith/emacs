@@ -12,15 +12,20 @@
 (setq typescript-indent-level 2)
 (setq line-number-mode t)
 (setq column-number-mode t)
+(setq-default tab-width 4)
+;;LSP performance tuning
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq gc-cons-threshold 100000000)
+(setq lsp-log-io nil)
 
 
 (add-hook 'compilation-finish-functions
           (lambda (buf strg)
             (let ((win  (get-buffer-window buf 'visible)))
               (when win (delete-window win)))))
+(add-to-list 'load-path "~/.opam/default/share/emacs/site-lisp")
+(require 'ocp-indent)
 
-
-;;(load "~/.emacs.d/custom.el"
 ;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
 (require 'ox-beamer)
@@ -58,6 +63,8 @@
   (add-hook 'js-mode-hook #'lsp)
   (add-hook 'typescript-mode-hook #'lsp)
   (add-hook 'rust-mode-hook #'lsp)
+  (add-hook 'go-mode-hook #'lsp)
+  (add-hook 'swift-mode-hook #'lsp)
   ;;(add-hook 'web-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
 
@@ -90,27 +97,29 @@
   (setq auto-package-update-hide-results t)
   (setq auto-package-update-interval 2)
   (auto-package-update-maybe))
-
+(use-package mos-mode
+  :ensure t)
+  
 ;; Evil settings
-(use-package evil
-  :ensure t
-  :disabled t
-  :init ;; I'm changing some things before it loads. They have to be
-  (setq evil-disable-insert-state-bindings t)
-  (setq evil-want-keybinding nil)
-  :config ;; Tweak after it loads
-  (evil-mode)
-  (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  (evil-set-initial-state 'vterm-mode 'insert)
-  (evil-set-initial-state 'dired-mode 'insert)  
-  (evil-set-initial-state 'helpful-mode 'insert)
-  (evil-set-initial-state 'calendar-mode 'emacs)
-  (evil-set-initial-state 'git-commit-mode 'insert))
-(use-package evil-collection
-  :ensure t
-  :disabled t
-  )
+;; (use-package evil
+;;   :ensure t
+;;   :disabled t
+;;   :init ;; I'm changing some things before it loads. They have to be
+;;   (setq evil-disable-insert-state-bindings t)
+;;   (setq evil-want-keybinding nil)
+;;   :config ;; Tweak after it loads
+;;   (evil-mode)
+;;   (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
+;;   (add-hook 'org-capture-mode-hook 'evil-insert-state)
+;;   (evil-set-initial-state 'vterm-mode 'insert)
+;;   (evil-set-initial-state 'dired-mode 'insert)  
+;;   (evil-set-initial-state 'helpful-mode 'insert)
+;;   (evil-set-initial-state 'calendar-mode 'emacs)
+;;   (evil-set-initial-state 'git-commit-mode 'insert))
+;; (use-package evil-collection
+;;   :ensure t
+;;   :disabled t
+;;   )
 (use-package magit
   :ensure t
   :bind
@@ -120,8 +129,6 @@
   :ensure t)
 (use-package cider
   :ensure t)
-;(use-package geiser-guile
-;  :ensure t)
 (use-package racket-mode
   :ensure t)
 (use-package haskell-mode
@@ -134,6 +141,15 @@
   :ensure t)
 (use-package go-mode
   :ensure t)
+
+(defalias 'go-err
+   (kmacro "i f SPC e r r ! = SPC n i l SPC { <return> <return> } C-p <tab>"))
+
+
+(global-set-key (kbd "C-c m") 'go-err)
+
+
+
 (use-package web-mode
   :ensure t
   :config
@@ -174,12 +190,7 @@
   :ensure t
   :config
   (add-to-list 'company-backends 'company-c-headers))
-;(use-package emmet-mode
-;  :ensure t
-;  :config
-;  (add-hook 'web-mode-hook 'emmet-mode)
-;  (add-hook 'sgml-mode-hook 'emmet-mode)
-;  (add-hook 'css-mode-hook  'emmet-mode))
+
 (use-package ivy
   :ensure t
   :config
@@ -210,10 +221,7 @@
   :ensure t
   :bind
   ("M-o" . 'ace-window))
-(use-package kdeconnect
-  :ensure t
-  :config
-  (setq kdeconnect-active-device "29d7fe6628f4b696"))
+
 (use-package speed-type
   :ensure t)
 (use-package highlight-defined
@@ -254,9 +262,7 @@
 (use-package org-superstar
   :ensure t
   :config
-  ;(setq org-superstar-headline-bullets-list '("✖" "✚" "◉" "○" "▶")
   (setq org-superstar-headline-bullets-list '("✚" "◉" "○" "✸" "✿")     
-        ;; org-superstar-special-todo-items t
         org-ellipsis " ↴ ")
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 (use-package org-chef
@@ -267,7 +273,7 @@
 (use-package writegood-mode
   :ensure t
   :bind
-  ("C-c C-g" . 'writegood-mode))
+  ("C-c C-w" . 'writegood-mode))
 (global-display-line-numbers-mode)
 
 ;;latitude and longitude
@@ -302,7 +308,7 @@
   (setq org-directory "~/org")
   (setq org-mobile-directory "~/Documents/org")
 ;;  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
-  (setq org-agenda-files '( "~/org/capture.org" "~/org/conestoga" "~/org/courses.org"))
+  (setq org-agenda-files '( "~/org/capture.org" "~/org/acceldata" "~/org/courses.org"))
   ;;(setq org-log-into-drawer t
   ;;      org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
@@ -366,11 +372,6 @@
 )))
 
 
-;; (add-hook 'org-mode-hook '(lambda ()
-;;                           (visual-line-mode)
-;;                           (toggle-word-wrap)
-;;                           (org-indent-mode)
-;;                           (flyspell-mode)))
 (setq-default c-default-style "linux"
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
@@ -379,11 +380,6 @@
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
 (setq backup-by-copying t)
-;;Move variables set by emacs automatically into another file so this one looks clean 
-;;(setq custom-file (concat user-emacs-directory "/custom.el"))
-
-;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;;(setq inferior-lisp-program "/usr/bin/sbcl")
 
 ;;I tried this for something and I don't think it made a difference
 (setq posframe-gtk-resize-child-frames 'resize-mode)
@@ -394,7 +390,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+   '(mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
