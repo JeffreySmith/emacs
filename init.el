@@ -18,6 +18,8 @@
 (setq gc-cons-threshold 100000000)
 (setq lsp-log-io nil)
 
+(setq url-debug t)
+
 
 (add-hook 'compilation-finish-functions
           (lambda (buf strg)
@@ -41,6 +43,12 @@
   :bind
   ("C-=" . 'text-scale-increase)
   ("C--" . 'text-scale-decrease))
+(use-package sqlite-mode
+  :ensure nil
+  :defer
+  :bind (:map sqlite-mode-map
+              ("n" . next-line)
+              ("p" . previous-line)))
 (use-package visual-regexp
   :bind
   ("C-c r" . 'vr/replace)
@@ -84,6 +92,7 @@
   (setq lsp-ui-doc-show-with-mouse nil)
   :commands lsp-ui-mode)
 (use-package typescript-mode
+  
   :ensure t
   :hook (typescript-mode . lsp-deferred)
   :config
@@ -98,10 +107,17 @@
   (setq auto-package-update-hide-results t)
   (setq auto-package-update-interval 7)
   (auto-package-update-maybe))
-
+        
 
 (use-package mos-mode
   :ensure t)
+(use-package eshell
+  :ensure nil
+  :bind
+  ("C-c w" . eshell-isearch-backward))
+
+
+
 (use-package esh-autosuggest
   :hook (eshell-mode . esh-autosuggest-mode)
   :ensure t)
@@ -183,6 +199,9 @@
   :config
   (load-theme 'solarized-light t))
 
+(defun disable-company ()
+  "This will disable company in a particular mode"
+  (company-mode -1))
 
 (use-package company
   :ensure t
@@ -193,7 +212,8 @@
   (setq company-global-modes '(not magit-diff-mode))
   (setq company-global-modes '(not magit-mode))
   (setq company-global-modes '(not text-mode))
-  (add-hook 'org-mode-hook (lambda() (company-mode -1)))
+  (add-hook 'org-mode-hook #'disable-company)
+  (add-hook 'eshell-mode-hook 'disable-company)
   (add-to-list 'company-backends 'company-clang)
   (add-to-list 'company-backends 'company-css)
   (setq company-idle-delay 0)
