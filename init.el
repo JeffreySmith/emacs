@@ -22,7 +22,7 @@
 
 
 
-;;hides some annoying errors
+hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
 (require 'ox-beamer)
 (require 'ox-md)
@@ -67,7 +67,7 @@
   (add-hook 'rust-mode-hook #'lsp)
   (add-hook 'go-mode-hook #'lsp)
   (add-hook 'swift-mode-hook #'lsp)
-  ;;(add-hook 'web-mode-hook #'lsp)
+  (add-hook 'web-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
 
 
@@ -92,7 +92,7 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   (setq typescript-indent-level 2))
-;;Auto-update packages
+Auto-update packages
 
 (use-package auto-package-update
   :ensure t
@@ -129,26 +129,26 @@
           insert-directory-program "/opt/homebrew/bin/gls"))
   :custom
   (dired-listing-switches "-lDBXhgG --group-directories-first"))  
-;; Evil settings
-;; (use-package evil
-;;   :ensure t
-;;   :disabled t
-;;   :init ;; I'm changing some things before it loads. They have to be
-;;   (setq evil-disable-insert-state-bindings t)
-;;   (setq evil-want-keybinding nil)
-;;   :config ;; Tweak after it loads
-;;   (evil-mode)
-;;   (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
-;;   (add-hook 'org-capture-mode-hook 'evil-insert-state)
-;;   (evil-set-initial-state 'vterm-mode 'insert)
-;;   (evil-set-initial-state 'dired-mode 'insert)  
-;;   (evil-set-initial-state 'helpful-mode 'insert)
-;;   (evil-set-initial-state 'calendar-mode 'emacs)
-;;   (evil-set-initial-state 'git-commit-mode 'insert))
-;; (use-package evil-collection
-;;   :ensure t
-;;   :disabled t
-;;   )
+Evil settings
+(use-package evil
+  :ensure t
+  :disabled t
+  :init ;; I'm changing some things before it loads. They have to be
+  (setq evil-disable-insert-state-bindings t)
+  (setq evil-want-keybinding nil)
+  :config ;; Tweak after it loads
+  (evil-mode)
+  (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (evil-set-initial-state 'vterm-mode 'insert)
+  (evil-set-initial-state 'dired-mode 'insert)  
+  (evil-set-initial-state 'helpful-mode 'insert)
+  (evil-set-initial-state 'calendar-mode 'emacs)
+  (evil-set-initial-state 'git-commit-mode 'insert))
+(use-package evil-collection
+  :ensure t
+  :disabled t
+  )
 (use-package magit
   :ensure t
   :bind
@@ -315,18 +315,18 @@
   ("C-c C-w" . 'writegood-mode))
 (global-display-line-numbers-mode)
 
-;;latitude and longitude
+latitude and longitude
 (setq calendar-latitude 43.6)
 (setq calendar-longitude -79.3)
 (setq calendar-location-name "Toronto, ON")
-;;Dictionary things
+Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
 
-;;Theming
+Theming
 (toggle-scroll-bar -1)
 
-;;Org mode stuff
+Org mode stuff
 
 (use-package org-appear
   :ensure t
@@ -346,8 +346,8 @@
   :config
   (setq org-directory "~/org")
   (setq org-mobile-directory "~/Documents/org")
-;;  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
-  (setq org-agenda-files '( "~/org/capture.org" "~/org/acceldata/" "~/org/courses.org"))
+  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
+  ;;(setq org-agenda-files '( "~/org/capture.org" "~/org/acceldata.org" "~/org/courses.org"))
   ;;(setq org-log-into-drawer t
   ;;      org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
