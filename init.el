@@ -22,7 +22,7 @@
 
 
 
-hides some annoying errors
+;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
 (require 'ox-beamer)
 (require 'ox-md)
@@ -92,7 +92,7 @@ hides some annoying errors
   :config
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   (setq typescript-indent-level 2))
-Auto-update packages
+;;Auto-update packages
 
 (use-package auto-package-update
   :ensure t
@@ -129,7 +129,7 @@ Auto-update packages
           insert-directory-program "/opt/homebrew/bin/gls"))
   :custom
   (dired-listing-switches "-lDBXhgG --group-directories-first"))  
-Evil settings
+;;Evil settings
 (use-package evil
   :ensure t
   :disabled t
@@ -315,18 +315,18 @@ Evil settings
   ("C-c C-w" . 'writegood-mode))
 (global-display-line-numbers-mode)
 
-latitude and longitude
+;;latitude and longitude
 (setq calendar-latitude 43.6)
 (setq calendar-longitude -79.3)
 (setq calendar-location-name "Toronto, ON")
-Dictionary things
+;;Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
 
-Theming
+;;Theming
 (toggle-scroll-bar -1)
 
-Org mode stuff
+;;Org mode stuff
 
 (use-package org-appear
   :ensure t
