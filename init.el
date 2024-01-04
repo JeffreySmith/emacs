@@ -21,12 +21,6 @@
 (setq url-debug t)
 
 
-(add-hook 'compilation-finish-functions
-          (lambda (buf strg)
-            (let ((win  (get-buffer-window buf 'visible)))
-              (when win (delete-window win)))))
-(add-to-list 'load-path "~/.opam/default/share/emacs/site-lisp")
-(require 'ocp-indent)
 
 ;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
