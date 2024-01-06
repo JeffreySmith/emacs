@@ -154,8 +154,9 @@
   :bind
   ("C-c g" . magit-file-dispatch)
   ("C-x g" . magit-status))
-(use-package vterm
-  :ensure t)
+(if (not (eq system-type 'windows-nt))
+ (use-package vterm
+  :ensure t))
 (use-package cider
   :ensure t)
 (use-package racket-mode
