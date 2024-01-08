@@ -64,6 +64,7 @@
   (add-hook 'haskell-literate-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
   (add-hook 'typescript-mode-hook #'lsp)
+  (add-hook 'python-mode-hook #'lsp)
   (add-hook 'rust-mode-hook #'lsp)
   (add-hook 'go-mode-hook #'lsp)
   (add-hook 'swift-mode-hook #'lsp)
