@@ -69,6 +69,7 @@
   (add-hook 'go-mode-hook #'lsp)
   (add-hook 'swift-mode-hook #'lsp)
   (add-hook 'web-mode-hook #'lsp)
+  (add-hook 'sh-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
 
 
