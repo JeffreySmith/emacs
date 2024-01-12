@@ -7,6 +7,7 @@
 (setq package-native-compile t)
 (add-to-list 'exec-path "~/.bin/")
 
+
 (global-set-key (kbd "C-c c") "->")
 (setq js-indent-level 2)
 (setq typescript-indent-level 2)
@@ -131,26 +132,7 @@
           insert-directory-program "/opt/homebrew/bin/gls"))
   :custom
   (dired-listing-switches "-lDBXhgG --group-directories-first"))  
-;;Evil settings
-(use-package evil
-  :ensure t
-  :disabled t
-  :init ;; I'm changing some things before it loads. They have to be
-  (setq evil-disable-insert-state-bindings t)
-  (setq evil-want-keybinding nil)
-  :config ;; Tweak after it loads
-  (evil-mode)
-  (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  (evil-set-initial-state 'vterm-mode 'insert)
-  (evil-set-initial-state 'dired-mode 'insert)  
-  (evil-set-initial-state 'helpful-mode 'insert)
-  (evil-set-initial-state 'calendar-mode 'emacs)
-  (evil-set-initial-state 'git-commit-mode 'insert))
-(use-package evil-collection
-  :ensure t
-  :disabled t
-  )
+
 (use-package magit
   :ensure t
   :bind
