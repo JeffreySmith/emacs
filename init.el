@@ -220,9 +220,11 @@
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
+  ;; This helps greatly with performance
+  (setq swiper-use-visual-line-p #'ignore)
   :bind
   ("C-c C-r" . ivy-resume)
-  ("C-s" . 'counsel-grep))
+  ("C-s" . 'counsel-grep-or-swiper))
 (use-package lsp-ivy
   :ensure t)
 (use-package avy
