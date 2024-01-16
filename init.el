@@ -31,6 +31,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
+   (awk . t)
    (shell . t)))
 
 (require 'org-habit)
@@ -221,7 +222,7 @@
   (setq enable-recursive-minibuffers t)
   :bind
   ("C-c C-r" . ivy-resume)
-  ("C-s" . 'swiper))
+  ("C-s" . 'counsel-grep))
 (use-package lsp-ivy
   :ensure t)
 (use-package avy
