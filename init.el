@@ -221,10 +221,9 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   ;; This helps greatly with performance
-  (setq swiper-use-visual-line-p #'ignore)
+
   :bind
-  ("C-c C-r" . ivy-resume)
-  ("C-s" . 'counsel-grep-or-swiper))
+  ("C-c C-r" . ivy-resume))
 (use-package lsp-ivy
   :ensure t)
 (use-package avy
@@ -234,12 +233,15 @@
   ("C-c q" . 'avy-goto-char-2))
 (use-package counsel
   :ensure t
+  :config
+  (setq swiper-use-visual-line-p #'ignore)
   :bind
   ("M-x" . 'counsel-M-x)
   ("C-x C-f" . 'counsel-find-file)
   ("C-x l" . 'counsel-locate)
   ("<f1> l" . 'counsel-find-library)
   ("<f2> u" . 'counsel-unicode-char)
+  ("C-s" . 'counsel-grep-or-swiper)
   :config
   (counsel-mode 1))
 (use-package ace-window
