@@ -7,6 +7,7 @@
 (setq package-native-compile t)
 (add-to-list 'exec-path "~/.bin/")
 
+
 (global-set-key (kbd "C-c c") "->")
 (setq js-indent-level 2)
 (setq typescript-indent-level 2)
@@ -30,6 +31,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
+   (awk . t)
    (shell . t)))
 
 (require 'org-habit)
@@ -64,10 +66,12 @@
   (add-hook 'haskell-literate-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
   (add-hook 'typescript-mode-hook #'lsp)
+  (add-hook 'python-mode-hook #'lsp)
   (add-hook 'rust-mode-hook #'lsp)
   (add-hook 'go-mode-hook #'lsp)
   (add-hook 'swift-mode-hook #'lsp)
   (add-hook 'web-mode-hook #'lsp)
+  (add-hook 'sh-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
 
 
@@ -105,6 +109,10 @@
 
 (use-package mos-mode
   :ensure t)
+(use-package anaconda-mode
+  :ensure t)
+
+
 (use-package eshell
   :ensure nil
   :bind
@@ -129,33 +137,15 @@
           insert-directory-program "/opt/homebrew/bin/gls"))
   :custom
   (dired-listing-switches "-lDBXhgG --group-directories-first"))  
-;;Evil settings
-(use-package evil
-  :ensure t
-  :disabled t
-  :init ;; I'm changing some things before it loads. They have to be
-  (setq evil-disable-insert-state-bindings t)
-  (setq evil-want-keybinding nil)
-  :config ;; Tweak after it loads
-  (evil-mode)
-  (add-hook 'org-log-buffer-setup-hook 'evil-insert-state)
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  (evil-set-initial-state 'vterm-mode 'insert)
-  (evil-set-initial-state 'dired-mode 'insert)  
-  (evil-set-initial-state 'helpful-mode 'insert)
-  (evil-set-initial-state 'calendar-mode 'emacs)
-  (evil-set-initial-state 'git-commit-mode 'insert))
-(use-package evil-collection
-  :ensure t
-  :disabled t
-  )
+
 (use-package magit
   :ensure t
   :bind
   ("C-c g" . magit-file-dispatch)
   ("C-x g" . magit-status))
-(use-package vterm
-  :ensure t)
+(if (not (eq system-type 'windows-nt))
+ (use-package vterm
+  :ensure t))
 (use-package cider
   :ensure t)
 (use-package racket-mode
@@ -230,9 +220,11 @@
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
+  ;; This helps greatly with performance
+  (setq swiper-use-visual-line-p #'ignore)
   :bind
   ("C-c C-r" . ivy-resume)
-  ("C-s" . 'swiper))
+  ("C-s" . 'counsel-grep-or-swiper))
 (use-package lsp-ivy
   :ensure t)
 (use-package avy
@@ -431,7 +423,7 @@
  '(org-agenda-files
    '("/home/jeffrey/org/conestoga/co-op.org" "/home/jeffrey/org/conestoga/info8000.org" "/home/jeffrey/org/conestoga/info8105.org" "/home/jeffrey/org/conestoga/info8990.org" "/home/jeffrey/org/conestoga/orientation.org" "/home/jeffrey/org/conestoga/prog8010.org" "/home/jeffrey/org/conestoga/prog8020.org" "/home/jeffrey/org/conestoga/prog8080.org" "/home/jeffrey/org/conestoga/prog8110.org" "/home/jeffrey/org/conestoga/prog8170.org" "/home/jeffrey/org/conestoga/prog8540.org" "/home/jeffrey/org/conestoga/prog8550.org" "/home/jeffrey/org/publishing/about.org" "/home/jeffrey/org/publishing/index.org" "/home/jeffrey/org/recipes/cookbook.org" "/home/jeffrey/org/TTRPG-Project.org" "/home/jeffrey/org/accident.org" "/home/jeffrey/org/bikecontent.org" "/home/jeffrey/org/biketourwelcome.org" "/home/jeffrey/org/capture.org" "/home/jeffrey/org/courses.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/homebrew.org" "/home/jeffrey/org/journal.org" "/home/jeffrey/org/presentation.org" "/home/jeffrey/org/read-books.org" "/home/jeffrey/org/table.org" "/home/jeffrey/org/table2.org" "/home/jeffrey/org/test.org"))
  '(package-selected-packages
-   '(eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+   '(anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
