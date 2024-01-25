@@ -220,8 +220,7 @@
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-  ;; This helps greatly with performance
-
+  (setq ivy-use-selectable-prompt t)
   :bind
   ("C-c C-r" . ivy-resume))
 (use-package lsp-ivy
@@ -234,6 +233,7 @@
 (use-package counsel
   :ensure t
   :config
+  ;; This helps greatly with performance
   (setq swiper-use-visual-line-p #'ignore)
   :bind
   ("M-x" . 'counsel-M-x)
