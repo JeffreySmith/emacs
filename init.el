@@ -11,6 +11,7 @@
 (global-set-key (kbd "C-c c") "->")
 (setq js-indent-level 2)
 (setq typescript-indent-level 2)
+
 (setq line-number-mode t)
 (setq column-number-mode t)
 (setq-default tab-width 4)
@@ -34,7 +35,7 @@
    (awk . t)
    (shell . t)))
 
-(require 'org-habit)
+
 (use-package emacs
   :bind
   ("C-=" . 'text-scale-increase)
@@ -152,6 +153,10 @@
   :ensure t)
 (use-package racket-mode
   :ensure t)
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
 (use-package haskell-mode
   :ensure t)
 (use-package nim-mode
@@ -168,8 +173,6 @@
 
 
 (global-set-key (kbd "C-c m") 'go-err)
-
-
 
 (use-package web-mode
   :ensure t
@@ -188,7 +191,13 @@
 (defun disable-company ()
   "This will disable company in a particular mode"
   (company-mode -1))
-
+(use-package treemacs
+  :ensure t
+  :config
+  (setq treemacs-no-png-images t
+        treemacs-width 36)
+  :bind
+  ("C-c t" . treemacs))
 (use-package company
   :ensure t
   :config
@@ -342,8 +351,8 @@
   :config
   (setq org-directory "~/org")
   (setq org-mobile-directory "~/Documents/org")
-  (setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
-  ;;(setq org-agenda-files '( "~/org/capture.org" "~/org/acceldata.org" "~/org/courses.org"))
+  ;;(setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
+  (setq org-agenda-files '( "~/org/capture.org" "~/org/acceldata/agenda.org" "~/org/acceldata/training.org" "~/org/courses.org"))
   ;;(setq org-log-into-drawer t
   ;;      org-clock-into-drawer "CLOCKING")
   (setq org-mobile-force-id-on-agenda-items nil)
@@ -424,10 +433,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
  '(org-agenda-files
    '("/home/jeffrey/org/courses.org" "/home/jeffrey/org/darksouls.org" "/home/jeffrey/org/homebrew.org" "/home/jeffrey/org/journal.org" "/home/jeffrey/org/presentation.org" "/home/jeffrey/org/read-books.org" "/home/jeffrey/org/table.org" "/home/jeffrey/org/table2.org" "/home/jeffrey/org/test.org"))
+
+
+
  '(package-selected-packages
-   '(eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+   '(slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
