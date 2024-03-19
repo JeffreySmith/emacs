@@ -80,7 +80,8 @@
   :ensure t
   :after lsp-mode
   :config
-  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+  (when (string= system-type "darwin")
+    (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp")))
 (use-package swift-mode
   :ensure t
   :hook (swift-mode . (lambda () (lsp))))
@@ -144,11 +145,11 @@
   :bind
   ("C-c g" . magit-file-dispatch)
   ("C-x g" . magit-status))
-(if (not (eq system-type 'windows-nt))
+
+(if (not (string= system-type 'windows-nt))
  (use-package vterm
    :ensure t))
-(use-package eat
-  :ensure t)
+
 (use-package cider
   :ensure t)
 (use-package racket-mode
@@ -215,9 +216,9 @@
   (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t)
   (global-company-mode t))
+
 (use-package zig-mode
   :ensure t)
-  
 (use-package company-box
   :disabled t)
 (use-package company-c-headers
@@ -303,14 +304,6 @@
   :ensure t
   :if (display-graphic-p))
 
-(use-package org-superstar
-  :ensure t
-  :config
-  (setq org-superstar-headline-bullets-list '("✚" "◉" "○" "✸" "✿")     
-        org-ellipsis " ↴ ")
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
-(use-package org-chef
-  :ensure t)
   
 (use-package olivetti
   :ensure t)
@@ -332,6 +325,16 @@
 (toggle-scroll-bar -1)
 
 ;;Org mode stuff
+
+(use-package org-superstar
+  :ensure t
+  :config
+  (setq org-superstar-headline-bullets-list '("✚" "◉" "○" "✸" "✿")     
+        org-ellipsis " ↴ ")
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+
+(use-package org-chef
+  :ensure t)
 
 (use-package org-appear
   :ensure t
@@ -386,6 +389,7 @@
                :publishing-function 'org-html-publish-to-html
                :section-numbers nil
                :with-toc nil)))
+  ;; Capture templates
   (setq org-capture-templates
         '(("n" "Test template")
           ("nt" "TODO entry" entry
@@ -419,7 +423,7 @@
 (setq-default c-default-style "linux"
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
-;; Capture templates
+
 
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
