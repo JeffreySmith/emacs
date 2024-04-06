@@ -133,11 +133,11 @@
 (use-package dired
   :ensure nil
   :config
-  (when (string= system-type "darwin")
-    (setq dired-use-ls-dired t
-          insert-directory-program "/opt/homebrew/bin/gls"))
+  (when (not (string= system-type "gnu/linux"))
+    (setq ls-lisp-use-insert-directory-program nil)
+    (require 'ls-lisp))
   :custom
-  (dired-listing-switches "-lDBXhgG --group-directories-first"))  
+  (dired-listing-switches "-lDBXhgG --group-directories-first"))
 
 (use-package magit
   :ensure t
