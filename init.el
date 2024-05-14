@@ -26,6 +26,7 @@
 
 ;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
+
 (require 'ox-beamer)
 (require 'ox-md)
 
@@ -74,7 +75,10 @@
   (add-hook 'web-mode-hook #'lsp)
   (add-hook 'sh-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
-
+(use-package lsp-java
+  :ensure t
+  :config
+  (add-hook 'java-mode-hook #'lsp))
 
 (use-package lsp-sourcekit
   :ensure t
@@ -150,8 +154,6 @@
  (use-package vterm
    :ensure t))
 
-(use-package cider
-  :ensure t)
 (use-package racket-mode
   :ensure t)
 (use-package slime
@@ -159,8 +161,6 @@
   :config
   (setq inferior-lisp-program "sbcl"))
 (use-package haskell-mode
-  :ensure t)
-(use-package nim-mode
   :ensure t)
 (use-package lua-mode
   :ensure t)
@@ -171,8 +171,6 @@
 
 (defalias 'go-err
    (kmacro "i f SPC e r r ! = SPC n i l SPC { <return> <return> } C-p <tab>"))
-
-
 (global-set-key (kbd "C-c m") 'go-err)
 
 (use-package web-mode
@@ -298,7 +296,7 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-week-agenda t)
   (setq dashboard-center-content t)
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  ;;(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-set-footer nil))
 (use-package all-the-icons
   :ensure t
@@ -314,9 +312,9 @@
 (global-display-line-numbers-mode)
 
 ;;latitude and longitude
-(setq calendar-latitude 43.6)
-(setq calendar-longitude -79.3)
-(setq calendar-location-name "Toronto, ON")
+(setq calendar-latitude 43.544)
+(setq calendar-longitude -80.2482)
+(setq calendar-location-name "Guelph, ON")
 ;;Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
@@ -424,7 +422,6 @@
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
 
-
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
 (setq backup-by-copying t)
@@ -438,7 +435,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(mos-mode lsp-sourcekit lsp-ivy lsp-ui slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest go-mode zig-mode zig lsp-haskell swift-mode typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+   '(lsp-java slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
+>>>>>>> ad505ace41a9bad3063b3e81a20df8b3b3ba3bbd
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
