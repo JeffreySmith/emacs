@@ -26,6 +26,7 @@
 
 ;;hides some annoying errors
 (setq native-comp-async-report-warnings-errors nil)
+
 (require 'ox-beamer)
 (require 'ox-md)
 
@@ -153,8 +154,6 @@
  (use-package vterm
    :ensure t))
 
-(use-package cider
-  :ensure t)
 (use-package racket-mode
   :ensure t)
 (use-package slime
@@ -162,8 +161,6 @@
   :config
   (setq inferior-lisp-program "sbcl"))
 (use-package haskell-mode
-  :ensure t)
-(use-package nim-mode
   :ensure t)
 (use-package lua-mode
   :ensure t)
@@ -174,8 +171,6 @@
 
 (defalias 'go-err
    (kmacro "i f SPC e r r ! = SPC n i l SPC { <return> <return> } C-p <tab>"))
-
-
 (global-set-key (kbd "C-c m") 'go-err)
 
 (use-package web-mode
@@ -317,9 +312,9 @@
 (global-display-line-numbers-mode)
 
 ;;latitude and longitude
-(setq calendar-latitude 43.6)
-(setq calendar-longitude -79.3)
-(setq calendar-location-name "Toronto, ON")
+(setq calendar-latitude 43.544)
+(setq calendar-longitude -80.2482)
+(setq calendar-location-name "Guelph, ON")
 ;;Dictionary things
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "en_CA")
@@ -426,7 +421,6 @@
 (setq-default c-default-style "linux"
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
-
 
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
