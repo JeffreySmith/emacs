@@ -62,6 +62,7 @@
   :ensure t
   :init
   (setq lsp-keymap-prefix "C-c C-l")
+  (setq lsp-headerline-arrow "=>")
   :config
   (add-hook 'JavaScript-mode-hook #'lsp)
   (add-hook 'haskell-mode-hook #'lsp)
