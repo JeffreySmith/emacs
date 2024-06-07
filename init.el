@@ -169,9 +169,7 @@
 (use-package go-mode
   :ensure t)
 
-(defalias 'go-err
-   (kmacro "i f SPC e r r ! = SPC n i l SPC { <return> <return> } C-p <tab>"))
-(global-set-key (kbd "C-c m") 'go-err)
+
 
 (use-package web-mode
   :ensure t
@@ -421,6 +419,32 @@
 (setq-default c-default-style "linux"
 	      c-basic-offset 4
 	      indent-tabs-mode nil)
+
+;;Various functions
+
+;;Something to make go errors a bit less painful
+(defun go-error-not-nil ()
+  (interactive)
+
+  (let ((start (point))
+        (set-point 0)
+        (end 0))
+    
+    (if (not (empty-line?))
+         (progn (insert "\n")
+                (setq start (point))))
+
+    (execute-kbd-macro (kbd "<tab>"))
+    (insert "if err != nil {\n")
+    (setq set-point (point))
+    (insert "\n}")
+    (setq end (point))
+    (indent-region start end)
+    (goto-char set-point)
+    (execute-kbd-macro (kbd "<tab>"))))
+
+(define-key go-mode-map (kbd "C-c e") 'go-error-not-nil)
+
 
 ;;Backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
