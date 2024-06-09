@@ -47,6 +47,11 @@
   :bind (:map sqlite-mode-map
               ("n" . next-line)
               ("p" . previous-line)))
+(use-package ledger-mode
+  :ensure t
+  :init
+  (setq ledger-clear-whole-transactions 1)
+  :mode "\\.ledger\\'")
 (use-package visual-regexp
   :bind
   ("C-c r" . 'vr/replace)
@@ -422,27 +427,39 @@
 	      indent-tabs-mode nil)
 
 ;;Various functions
+(defun get-line-text ()
+  "Get the text of the line you're currently on."
+  (let ((p1 (line-beginning-position))
+        (p2 (line-end-position)))
+    (setq text (buffer-substring-no-properties p1 p2)))
+  text)
 
-;;Something to make go errors a bit less painful
-(defun go-error-not-nil ()
+
+;;Something to make go errors easier to write
+(defun go-error-not-nil nil
+  "Inserts a go err != nil block."
   (interactive)
 
   (let ((start (point))
         (set-point 0)
         (end 0))
     
-    (if (not (empty-line?))
-         (progn (insert "\n")
-                (setq start (point))))
+    (if (not ((lambda (text)
+                (string-equal (string-trim (get-line-text)) ""))
+              (get-line-text)))
+        (progn
+          (move-end-of-line nil)
+          (insert "\n")
+          (setq start (point))))
 
-    (execute-kbd-macro (kbd "<tab>"))
+    (indent-for-tab-command)
     (insert "if err != nil {\n")
+    (indent-for-tab-command)
     (setq set-point (point))
     (insert "\n}")
     (setq end (point))
     (indent-region start end)
-    (goto-char set-point)
-    (execute-kbd-macro (kbd "<tab>"))))
+    (goto-char set-point)))
 
 (define-key go-mode-map (kbd "C-c e") 'go-error-not-nil)
 
@@ -460,8 +477,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-java slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
-
+   '(ledger ledger-mode slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
