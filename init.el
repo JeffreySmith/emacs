@@ -1,3 +1,4 @@
+(byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 (require 'use-package)
 (setq load-prefer-newer t)
 (require 'package)
@@ -16,7 +17,7 @@
 (setq column-number-mode t)
 (setq-default tab-width 4)
 ;;LSP performance tuning
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq read-process-output-max (* 1024 1024 3)) ;; 1mb
 (setq gc-cons-threshold 100000000)
 (setq lsp-log-io nil)
 
@@ -36,6 +37,33 @@
    (awk . t)
    (shell . t)))
 
+
+(defun my/org-present-start ()
+  ;; Center the presentation and wrap lines
+  (visual-fill-column-mode 1)
+  (visual-line-mode 1))
+
+(defun my/org-present-end ()
+  ;; Stop centering the document
+  (visual-fill-column-mode 0)
+  (visual-line-mode 0))
+
+
+
+(use-package exec-path-from-shell
+  :ensure t
+  :if (string= system-type "darwin")
+  :config
+  (exec-path-from-shell-initialize))
+
+
+(use-package org-present
+  :ensure t
+  :config
+  (add-hook 'org-present-mode-hook 'my/org-present-start)
+  (add-hook 'org-present-mode-quit-hook 'my/org-present-end))
+(use-package visual-fill-column
+  :ensure t)
 
 (use-package emacs
   :bind
@@ -63,12 +91,17 @@
   (gcmh-mode 1))
 (use-package mixed-pitch
   :ensure t)
+(use-package yaml-mode
+  :ensure t)
 (use-package lsp-mode
   :ensure t
   :init
   (setq lsp-keymap-prefix "C-c C-l")
   (setq lsp-headerline-arrow "=>")
+  (setq lsp-idle-delay 0.500)
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
   :config
+  (setq lsp-headerline-breadcrumb-enable nil)
   (add-hook 'JavaScript-mode-hook #'lsp)
   (add-hook 'haskell-mode-hook #'lsp)
   (add-hook 'haskell-literate-mode-hook #'lsp)
@@ -81,6 +114,16 @@
   (add-hook 'web-mode-hook #'lsp)
   (add-hook 'sh-mode-hook #'lsp)
   (lsp-enable-which-key-integration t))
+
+(use-package flymake-ruff
+  :ensure t
+  :hook (python-mode . flymake-ruff-load))
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))
 (use-package lsp-java
   :ensure t
   :config
@@ -152,13 +195,11 @@
 
 (use-package magit
   :ensure t
+  :config
+  (setq git-commit-major-mode 'markdown-mode)
   :bind
   ("C-c g" . magit-file-dispatch)
   ("C-x g" . magit-status))
-
-(if (not (string= system-type 'windows-nt))
- (use-package vterm
-   :ensure t))
 
 (use-package racket-mode
   :ensure t)
@@ -301,7 +342,7 @@
   (setq dashboard-week-agenda t)
   (setq dashboard-center-content t)
   ;;(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-  (setq dashboard-set-footer nil))
+  (setq dashboard-startupify-list nil))
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
@@ -327,7 +368,7 @@
 (toggle-scroll-bar -1)
 
 ;;Org mode stuff
-
+(setq org-agenda-include-diary t)
 (use-package org-superstar
   :ensure t
   :config
@@ -342,6 +383,14 @@
   :ensure t
   :hook (org-mode . org-appear-mode))
 
+(defun diary-last-day-of-month (date)
+"Return `t` if DATE is the last day of the month."
+  (let* ((day (calendar-extract-day date))
+         (month (calendar-extract-month date))
+         (year (calendar-extract-year date))
+         (last-day-of-month
+            (calendar-last-day-of-month month year)))
+    (= day last-day-of-month)))
 
 (use-package org
   :hook
@@ -369,7 +418,7 @@
   (setq org-startup-indented t)
   (setq org-hide-emphasis-markers t)
   (setq org-hide-leading-stars t)
-  (setq org-catch-invisible-edits  'smart)
+  (setq org-fold-catch-invisible-edits  'smart)
   (setq org-html-validation-link nil);;removes validate from the bottom of org exported html pages
 
 
@@ -420,6 +469,38 @@
            "%(org-chef-get-recipe-from-url)")
 
 )))
+
+(defun my/org-present-prepare-buffer ()
+  "Turn on `visual-fill-column-mode' and configure font sizes."
+  (visual-fill-column-mode 1)
+  (setq visual-fill-column-width 100)
+  (setq visual-fill-column-center-text t)
+  (setq-local visual-fill-column-center-text t)
+  (display-line-numbers-mode -1)
+  (global-display-line-numbers-mode))
+
+(defun my/org-present-exit-cleanup ()
+  "Turn off `visual-fill-column-mode' when exiting presentation."
+  (setq-local visual-fill-column-center-text nil)
+  (display-line-numbers-mode 1)
+  (visual-fill-column-mode -1))
+
+(with-eval-after-load 'org-present
+  (add-hook 'org-present-mode-hook #'my/org-present-prepare-buffer)
+  (add-hook 'org-present-mode-exit-hook #'my/org-present-exit-cleanup))
+
+(defun my/org-present-prepare-buffer ()
+  "Enable and configure visual-fill-column for centering."
+  (setq-local visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(defun my/org-present-exit-cleanup ()
+  "Disable visual-fill-column when exiting."
+  (visual-fill-column-mode -1))
+
+(with-eval-after-load 'org-present
+  (add-hook 'org-present-mode-hook #'my/org-present-prepare-buffer)
+  (add-hook 'org-present-mode-exit-hook #'my/org-present-exit-cleanup))
 
 
 (setq-default c-default-style "linux"
@@ -478,9 +559,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-
-   '(ledger ledger-mode slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest mos-mode go-mode zig-mode zig lsp-haskell swift-mode lsp-sourcekit lsp-ui lsp-ivy typescript-mode typescript lsp-mode visual-regexp vterm rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
-
+   '(lsp-pyright flymake-ruff magit-section visual-fill-column org-present magit lsp-ui lsp-sourcekit lsp-java mos-mode lsp-ivy yaml-mode ledger ledger-mode slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest go-mode zig-mode zig lsp-haskell swift-mode typescript-mode typescript lsp-mode visual-regexp rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
  '(safe-local-variable-values '((org-emphasis-alist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
