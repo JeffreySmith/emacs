@@ -553,7 +553,7 @@
   (setq dashboard-week-agenda t)
   (setq dashboard-center-content t)
   ;;(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-  (setq dashboard-startupify-list nil))
+  )
 
 (use-package all-the-icons
   :ensure t
