@@ -554,7 +554,6 @@
   (setq dashboard-center-content t)
   ;;(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-startupify-list nil))
-  (setq dashboard-set-footer nil))
 
 (use-package all-the-icons
   :ensure t
@@ -773,6 +772,24 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(nil nil t)
+ '(package-selected-packages
+   '(all-the-icons anaconda-mode auto-package-update cape cider
+                   clojure-ts-mode cmake-mode company-c-headers corfu
+                   counsel dashboard eat eglot-booster embark-consult
+                   esh-autosuggest eshell-prompt-extras
+                   exec-path-from-shell flycheck-nimsuggest
+                   flymake-ruff gcmh geiser-guile go-mode haskell-mode
+                   helpful highlight-defined jarchive ledger-mode
+                   lsp-ivy lsp-java lsp-pyright lsp-sourcekit lsp-ui
+                   lua-mode magit marginalia mixed-pitch mos-mode
+                   nerd-icons-completion nerd-icons-corfu nim-mode
+                   olivetti orderless org-appear org-chef org-present
+                   org-superstar pdf-tools pkg-info racket-mode
+                   rust-mode slime smartparens solarized-theme
+                   speed-type swift-mode typescript-mode vertico
+                   visual-fill-column visual-regexp web-mode which-key
+                   writegood-mode yaml-mode zig-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
