@@ -48,17 +48,8 @@
 (setq column-number-mode t)
 (setq-default tab-width 4)
 
-;;LSP performance tuning
-<<<<<<< HEAD
-(setq read-process-output-max (* 1024 1024 3)) ;; 1mb
-(setq gc-cons-threshold 100000000)
-(setq lsp-log-io nil)
-
-(setq url-debug t)
-
-=======
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
->>>>>>> 54f2136 (Many config improvements and updates)
+
 
 
 ;;hides some annoying errors
@@ -74,7 +65,6 @@
    (shell . t)))
 
 
-<<<<<<< HEAD
 (defun my/org-present-start ()
   ;; Center the presentation and wrap lines
   (visual-fill-column-mode 1)
@@ -106,9 +96,7 @@
   :bind
   ("C-=" . 'text-scale-increase)
   ("C--" . 'text-scale-decrease))
-=======
 
->>>>>>> 54f2136 (Many config improvements and updates)
 (use-package sqlite-mode
   :ensure nil
   :defer
@@ -138,46 +126,6 @@
 
 (use-package mixed-pitch
   :ensure t)
-<<<<<<< HEAD
-(use-package yaml-mode
-  :ensure t)
-(use-package lsp-mode
-  :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-c C-l")
-  (setq lsp-headerline-arrow "=>")
-  (setq lsp-idle-delay 0.500)
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
-  :config
-  (setq lsp-headerline-breadcrumb-enable nil)
-  (add-hook 'JavaScript-mode-hook #'lsp)
-  (add-hook 'haskell-mode-hook #'lsp)
-  (add-hook 'haskell-literate-mode-hook #'lsp)
-  (add-hook 'js-mode-hook #'lsp)
-  (add-hook 'typescript-mode-hook #'lsp)
-  (add-hook 'python-mode-hook #'lsp)
-  (add-hook 'rust-mode-hook #'lsp)
-  (add-hook 'go-mode-hook #'lsp)
-  (add-hook 'swift-mode-hook #'lsp)
-  (add-hook 'web-mode-hook #'lsp)
-  (add-hook 'sh-mode-hook #'lsp)
-  (lsp-enable-which-key-integration t))
-
-(use-package flymake-ruff
-  :ensure t
-  :hook (python-mode . flymake-ruff-load))
-(use-package lsp-pyright
-  :ensure t
-  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))
-(use-package lsp-java
-  :ensure t
-  :config
-  (add-hook 'java-mode-hook #'lsp))
-=======
->>>>>>> 54f2136 (Many config improvements and updates)
 
 (setq major-mode-remap-alist
       '((python-mode . python-ts-mode)
@@ -320,12 +268,9 @@
   ("C-c g" . magit-file-dispatch)
   ("C-x g" . magit-status))
 
-<<<<<<< HEAD
-=======
 (use-package eat
   :ensure t)
 
->>>>>>> 54f2136 (Many config improvements and updates)
 (use-package racket-mode
   :ensure t)
 
@@ -607,13 +552,10 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-week-agenda t)
   (setq dashboard-center-content t)
-<<<<<<< HEAD
   ;;(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-startupify-list nil))
-=======
   (setq dashboard-set-footer nil))
 
->>>>>>> 54f2136 (Many config improvements and updates)
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
@@ -659,7 +601,6 @@
   :ensure t
   :hook (org-mode . org-appear-mode))
 
-<<<<<<< HEAD
 (defun diary-last-day-of-month (date)
 "Return `t` if DATE is the last day of the month."
   (let* ((day (calendar-extract-day date))
@@ -669,8 +610,6 @@
             (calendar-last-day-of-month month year)))
     (= day last-day-of-month)))
 
-=======
->>>>>>> 54f2136 (Many config improvements and updates)
 (use-package org
   :hook
   (org-mode . visual-line-mode)
@@ -834,14 +773,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-<<<<<<< HEAD
- '(auth-source-save-behavior nil)
- '(package-selected-packages
-   '(lsp-pyright flymake-ruff magit-section visual-fill-column org-present magit lsp-ui lsp-sourcekit lsp-java mos-mode lsp-ivy yaml-mode ledger ledger-mode slime eat emacs-eat anaconda-mode eshell-prompt-extras esh-autosuggest go-mode zig-mode zig lsp-haskell swift-mode typescript-mode typescript lsp-mode visual-regexp rust-mode emmet-mode all-the-icons which-key org-chef doom-theme mixed-pitch gcmh smartparens org-superstar org-appear writegood-mode solarized-theme pdf-tools olivetti nim-mode lua-mode kdeconnect ivy-avy highlight-defined helpful ebdb counsel company-c-headers autothemer auto-package-update ace-window))
- '(safe-local-variable-values '((org-emphasis-alist))))
-=======
- '(package-selected-packages '(eglot-booster)))
->>>>>>> 54f2136 (Many config improvements and updates)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
