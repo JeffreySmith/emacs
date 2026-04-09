@@ -27,7 +27,7 @@
 	(insert (format "\n%d" a))
 	(message "%d" (mul-5 b))))
   (message "Not equal to four"))
-
+          
 ;;(message "String is %s" (read-string "Your name? "))
 (setq number 5)
 (setq guess 155)
